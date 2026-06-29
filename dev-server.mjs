@@ -51,6 +51,11 @@ const server = http.createServer(async (req, res) => {
 
     try {
       const text = await extractText(target);
+      if (!text) {
+        res.writeHead(502, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: '無法取得貼文內容' }));
+        return;
+      }
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ text }));
     } catch (err) {

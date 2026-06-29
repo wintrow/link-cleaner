@@ -10,6 +10,9 @@ export default async function handler(req, res) {
 
   try {
     const text = await extractText(target);
+    if (!text) {
+      return res.status(502).json({ error: '無法取得貼文內容' });
+    }
     return res.status(200).json({ text });
   } catch (err) {
     return res.status(502).json({ error: err.message || '取得失敗' });
