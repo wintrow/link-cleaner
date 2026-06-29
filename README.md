@@ -5,7 +5,7 @@
 ## 本機執行
 
 ```bash
-node server.mjs
+npm run dev
 ```
 
 開啟 http://localhost:3456

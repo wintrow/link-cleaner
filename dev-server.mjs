@@ -2,22 +2,25 @@ import http from 'http';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { extractText } from './extract.mjs';
+import { extractText } from './lib/extract.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const PUBLIC = path.join(__dirname, 'public');
 const PORT = process.env.PORT || 3456;
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
   '.css': 'text/css; charset=utf-8',
   '.js': 'application/javascript; charset=utf-8',
+  '.svg': 'image/svg+xml',
 };
 
 function serveStatic(req, res) {
-  const filePath = path.join(__dirname, req.url === '/' ? 'index.html' : req.url);
+  const reqPath = req.url === '/' ? '/index.html' : req.url.split('?')[0];
+  const filePath = path.join(PUBLIC, reqPath);
   const resolved = path.resolve(filePath);
 
-  if (!resolved.startsWith(__dirname)) {
+  if (!resolved.startsWith(PUBLIC)) {
     res.writeHead(403);
     res.end();
     return;

@@ -1,4 +1,4 @@
-import { extractText } from '../extract.mjs';
+import { extractText } from '../lib/extract.mjs';
 
 export default async function handler(req, res) {
   const raw = req.query.url;
