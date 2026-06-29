@@ -1,0 +1,108 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #111;
+  background: #fafafa;
+}
+
+main {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 48px 20px;
+}
+
+h1 {
+  margin: 0 0 4px;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.hint {
+  margin: 0 0 24px;
+  color: #666;
+  font-size: 0.875rem;
+}
+
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font: inherit;
+  resize: vertical;
+  background: #fff;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #999;
+}
+
+button {
+  margin-top: 12px;
+  padding: 8px 16px;
+  border: 1px solid #111;
+  border-radius: 6px;
+  background: #111;
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #333;
+}
+
+.status {
+  margin-top: 16px;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.status.error {
+  color: #b00;
+}
+
+.output {
+  margin-top: 24px;
+}
+
+pre {
+  margin: 0;
+  padding: 16px;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  background: #fff;
+  white-space: pre-wrap;
+  word-break: break-all;
+  font: inherit;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 0.8125rem;
+  color: #888;
+}
+
+.meta button {
+  margin: 0;
+  padding: 4px 12px;
+  border-color: #ccc;
+  background: #fff;
+  color: #111;
+  font-size: 0.8125rem;
+}
+
+.meta button:hover {
+  background: #f5f5f5;
+}

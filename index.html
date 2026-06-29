@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>連結淨化</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main>
+      <h1>連結淨化</h1>
+      <p class="hint">去除追蹤碼，附上標題或貼文文字（合計 ≤ 350 字元）</p>
+
+      <textarea id="input" rows="3" placeholder="貼上網址…"></textarea>
+      <button id="run" type="button">轉換</button>
+
+      <div id="status" class="status" hidden></div>
+
+      <section id="output" class="output" hidden>
+        <pre id="result"></pre>
+        <div class="meta">
+          <span id="count"></span>
+          <button id="copy" type="button">複製</button>
+        </div>
+      </section>
+    </main>
+    <script src="./app.js"></script>
+  </body>
+</html>

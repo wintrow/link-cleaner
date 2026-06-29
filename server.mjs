@@ -1,0 +1,65 @@
+import http from 'http';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { extractText } from './extract.mjs';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const PORT = process.env.PORT || 3456;
+
+const MIME = {
+  '.html': 'text/html; charset=utf-8',
+  '.css': 'text/css; charset=utf-8',
+  '.js': 'application/javascript; charset=utf-8',
+};
+
+function serveStatic(req, res) {
+  const filePath = path.join(__dirname, req.url === '/' ? 'index.html' : req.url);
+  const resolved = path.resolve(filePath);
+
+  if (!resolved.startsWith(__dirname)) {
+    res.writeHead(403);
+    res.end();
+    return;
+  }
+
+  const ext = path.extname(resolved);
+  fs.readFile(resolved, (err, data) => {
+    if (err) {
+      res.writeHead(404);
+      res.end('Not found');
+      return;
+    }
+    res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream' });
+    res.end(data);
+  });
+}
+
+const server = http.createServer(async (req, res) => {
+  const url = new URL(req.url, `http://localhost:${PORT}`);
+
+  if (url.pathname === '/api/extract') {
+    const target = url.searchParams.get('url');
+    if (!target) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: '缺少 url 參數' }));
+      return;
+    }
+
+    try {
+      const text = await extractText(target);
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ text }));
+    } catch (err) {
+      res.writeHead(502, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: err.message || '取得失敗' }));
+    }
+    return;
+  }
+
+  serveStatic(req, res);
+});
+
+server.listen(PORT, () => {
+  console.log(`http://localhost:${PORT}`);
+});
